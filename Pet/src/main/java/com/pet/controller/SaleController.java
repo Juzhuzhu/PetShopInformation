@@ -26,7 +26,7 @@ import org.springframework.stereotype.Controller;
  * (Sale)表控制层
  *
  * @author makejava
- * @since 2024-01-26 21:48:54
+ * @since 2024-01-27 02:04:26
  */
 @Controller
 @RequestMapping("/sale")
@@ -52,7 +52,7 @@ public class SaleController {
      * @param saleVo 查询实体
      * @return 所有数据
      */
-    @PostMapping("/select")
+    @PostMapping("/selectAll")
     @ResponseBody
     @ApiOperation(value = "分页查询所有数据")
     public Result selectAll(@RequestBody SaleVo saleVo) {
@@ -69,10 +69,10 @@ public class SaleController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("/{id}")
+    @PostMapping("/select")
     @ResponseBody
     @ApiOperation(value = "通过主键查询单条数据")
-    public Result selectOne(@RequestParam("id") Serializable id) {
+    public Result selectOne(@RequestParam("id") String id) {
         return Result.ok(this.saleService.getById(id));
     }
 
@@ -113,7 +113,7 @@ public class SaleController {
      * @param id 主键结合
      * @return 删除结果
      */
-    @PostMapping("/delete/{id}")
+    @PostMapping("/delete")
     @ResponseBody
     @ApiOperation(value = "删除数据")
     public Result delete(@RequestParam("id") String id) {
