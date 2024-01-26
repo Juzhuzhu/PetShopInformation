@@ -2,41 +2,65 @@ package com.pet.controller;
 
 
 import com.pet.utils.Result;
+import com.pet.utils.IdGenerator;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pet.vo.SaleVo;
 import com.pet.entity.Sale;
 import com.pet.service.SaleService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.BeanUtils;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
+
+import org.springframework.stereotype.Controller;
+
 
 /**
  * (Sale)表控制层
  *
  * @author makejava
- * @since 2024-01-26 01:28:00
+ * @since 2024-01-26 21:48:54
  */
-@RestController
-@RequestMapping("sale")
+@Controller
+@RequestMapping("/sale")
+@Api(tags = "Sale" + "模块")
 public class SaleController {
+
+    //id生成器
+    IdGenerator idGenerator = IdGenerator.getInstance();
+
     /**
      * 服务对象
      */
-    @Resource
-    private SaleService saleService;
+
+    private final SaleService saleService;
+
+    public SaleController(SaleService saleService) {
+        this.saleService = saleService;
+    }
 
     /**
      * 分页查询所有数据
      *
-     * @param page 分页对象
-     * @param sale 查询实体
+     * @param saleVo 查询实体
      * @return 所有数据
      */
-    @GetMapping
-    public Result selectAll(Page<Sale> page, Sale sale) {
-        return Result.ok(this.saleService.page(page, new QueryWrapper<>(sale)));
+    @PostMapping("/select")
+    @ResponseBody
+    @ApiOperation(value = "分页查询所有数据")
+    public Result selectAll(@RequestBody SaleVo saleVo) {
+        Page<Sale> page = new Page<>(saleVo.getPageNumber(), saleVo.getPageSize());
+        Sale sale = new Sale();
+        BeanUtils.copyProperties(saleVo, sale);
+        IPage<Sale> salePage = this.saleService.page(page, new QueryWrapper<>(sale));
+        return Result.ok(salePage);
     }
 
     /**
@@ -45,42 +69,55 @@ public class SaleController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public Result selectOne(@PathVariable Serializable id) {
+    @GetMapping("/{id}")
+    @ResponseBody
+    @ApiOperation(value = "通过主键查询单条数据")
+    public Result selectOne(@RequestParam("id") Serializable id) {
         return Result.ok(this.saleService.getById(id));
     }
 
     /**
      * 新增数据
      *
-     * @param sale 实体对象
+     * @param saleVo 实体对象
      * @return 新增结果
      */
-    @PostMapping
-    public Result insert(@RequestBody Sale sale) {
+    @PostMapping("/insert")
+    @ResponseBody
+    @ApiOperation(value = "新增数据")
+    public Result insert(@RequestBody SaleVo saleVo) {
+        saleVo.setId(String.valueOf(idGenerator.nextId()));
+        Sale sale = new Sale();
+        BeanUtils.copyProperties(saleVo, sale);
         return Result.ok(this.saleService.save(sale));
     }
 
     /**
      * 修改数据
      *
-     * @param sale 实体对象
+     * @param saleVo 实体对象
      * @return 修改结果
      */
-    @PutMapping
-    public Result update(@RequestBody Sale sale) {
+    @PostMapping("/update")
+    @ResponseBody
+    @ApiOperation(value = "修改数据")
+    public Result update(@RequestBody SaleVo saleVo) {
+        Sale sale = new Sale();
+        BeanUtils.copyProperties(saleVo, sale);
         return Result.ok(this.saleService.updateById(sale));
     }
 
     /**
      * 删除数据
      *
-     * @param idList 主键结合
+     * @param id 主键结合
      * @return 删除结果
      */
-    @DeleteMapping
-    public Result delete(@RequestParam("idList") List<Long> idList) {
-        return Result.ok(this.saleService.removeByIds(idList));
+    @PostMapping("/delete/{id}")
+    @ResponseBody
+    @ApiOperation(value = "删除数据")
+    public Result delete(@RequestParam("id") String id) {
+        return Result.ok(this.saleService.removeById(id));
     }
 }
 

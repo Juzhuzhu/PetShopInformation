@@ -2,41 +2,65 @@ package com.pet.controller;
 
 
 import com.pet.utils.Result;
+import com.pet.utils.IdGenerator;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pet.vo.PurchaseRecordVo;
 import com.pet.entity.PurchaseRecord;
 import com.pet.service.PurchaseRecordService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.BeanUtils;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
+
+import org.springframework.stereotype.Controller;
+
 
 /**
  * (PurchaseRecord)表控制层
  *
  * @author makejava
- * @since 2024-01-26 01:28:00
+ * @since 2024-01-26 21:48:54
  */
-@RestController
-@RequestMapping("purchaseRecord")
+@Controller
+@RequestMapping("/purchaseRecord")
+@Api(tags = "PurchaseRecord" + "模块")
 public class PurchaseRecordController {
+
+    //id生成器
+    IdGenerator idGenerator = IdGenerator.getInstance();
+
     /**
      * 服务对象
      */
-    @Resource
-    private PurchaseRecordService purchaseRecordService;
+
+    private final PurchaseRecordService purchaseRecordService;
+
+    public PurchaseRecordController(PurchaseRecordService purchaseRecordService) {
+        this.purchaseRecordService = purchaseRecordService;
+    }
 
     /**
      * 分页查询所有数据
      *
-     * @param page           分页对象
-     * @param purchaseRecord 查询实体
+     * @param purchaseRecordVo 查询实体
      * @return 所有数据
      */
-    @GetMapping
-    public Result selectAll(Page<PurchaseRecord> page, PurchaseRecord purchaseRecord) {
-        return Result.ok(this.purchaseRecordService.page(page, new QueryWrapper<>(purchaseRecord)));
+    @PostMapping("/select")
+    @ResponseBody
+    @ApiOperation(value = "分页查询所有数据")
+    public Result selectAll(@RequestBody PurchaseRecordVo purchaseRecordVo) {
+        Page<PurchaseRecord> page = new Page<>(purchaseRecordVo.getPageNumber(), purchaseRecordVo.getPageSize());
+        PurchaseRecord purchaseRecord = new PurchaseRecord();
+        BeanUtils.copyProperties(purchaseRecordVo, purchaseRecord);
+        IPage<PurchaseRecord> purchaseRecordPage = this.purchaseRecordService.page(page, new QueryWrapper<>(purchaseRecord));
+        return Result.ok(purchaseRecordPage);
     }
 
     /**
@@ -45,42 +69,55 @@ public class PurchaseRecordController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public Result selectOne(@PathVariable Serializable id) {
+    @GetMapping("/{id}")
+    @ResponseBody
+    @ApiOperation(value = "通过主键查询单条数据")
+    public Result selectOne(@RequestParam("id") Serializable id) {
         return Result.ok(this.purchaseRecordService.getById(id));
     }
 
     /**
      * 新增数据
      *
-     * @param purchaseRecord 实体对象
+     * @param purchaseRecordVo 实体对象
      * @return 新增结果
      */
-    @PostMapping
-    public Result insert(@RequestBody PurchaseRecord purchaseRecord) {
+    @PostMapping("/insert")
+    @ResponseBody
+    @ApiOperation(value = "新增数据")
+    public Result insert(@RequestBody PurchaseRecordVo purchaseRecordVo) {
+        purchaseRecordVo.setId(String.valueOf(idGenerator.nextId()));
+        PurchaseRecord purchaseRecord = new PurchaseRecord();
+        BeanUtils.copyProperties(purchaseRecordVo, purchaseRecord);
         return Result.ok(this.purchaseRecordService.save(purchaseRecord));
     }
 
     /**
      * 修改数据
      *
-     * @param purchaseRecord 实体对象
+     * @param purchaseRecordVo 实体对象
      * @return 修改结果
      */
-    @PutMapping
-    public Result update(@RequestBody PurchaseRecord purchaseRecord) {
+    @PostMapping("/update")
+    @ResponseBody
+    @ApiOperation(value = "修改数据")
+    public Result update(@RequestBody PurchaseRecordVo purchaseRecordVo) {
+        PurchaseRecord purchaseRecord = new PurchaseRecord();
+        BeanUtils.copyProperties(purchaseRecordVo, purchaseRecord);
         return Result.ok(this.purchaseRecordService.updateById(purchaseRecord));
     }
 
     /**
      * 删除数据
      *
-     * @param idList 主键结合
+     * @param id 主键结合
      * @return 删除结果
      */
-    @DeleteMapping
-    public Result delete(@RequestParam("idList") List<Long> idList) {
-        return Result.ok(this.purchaseRecordService.removeByIds(idList));
+    @PostMapping("/delete/{id}")
+    @ResponseBody
+    @ApiOperation(value = "删除数据")
+    public Result delete(@RequestParam("id") String id) {
+        return Result.ok(this.purchaseRecordService.removeById(id));
     }
 }
 

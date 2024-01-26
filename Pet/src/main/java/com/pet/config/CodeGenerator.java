@@ -1,4 +1,4 @@
-package com.pet.mpconfig;
+package com.pet.config;
 
 /**
  * mybatis-plus逆向工程

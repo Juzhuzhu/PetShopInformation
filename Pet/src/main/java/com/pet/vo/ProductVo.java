@@ -1,4 +1,6 @@
-package com.pet.entity;
+package com.pet.vo;
+
+import com.pet.utils.PageRequest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -23,9 +25,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(title = "Product实体类", name = "Product")
-public class Product implements Serializable {
+public class ProductVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = 187464933424280796L;
+    private static final long serialVersionUID = 122569809712998413L;
 
     /**
      * 商品ID（主键）

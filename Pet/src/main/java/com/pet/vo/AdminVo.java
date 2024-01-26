@@ -1,4 +1,6 @@
-package com.pet.entity;
+package com.pet.vo;
+
+import com.pet.utils.PageRequest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -23,9 +25,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(title = "Admin实体类", name = "Admin")
-public class Admin implements Serializable {
+public class AdminVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = 330456678230953885L;
+    private static final long serialVersionUID = -20590046137869828L;
 
     /**
      * 管理员id（主键）

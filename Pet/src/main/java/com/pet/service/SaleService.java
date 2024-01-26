@@ -7,7 +7,7 @@ import com.pet.entity.Sale;
  * (Sale)表服务接口
  *
  * @author makejava
- * @since 2024-01-26 01:28:01
+ * @since 2024-01-26 21:48:54
  */
 public interface SaleService extends IService<Sale> {
 

@@ -1,6 +1,8 @@
-package com.pet.entity;
+package com.pet.vo;
 
 import java.util.Date;
+
+import com.pet.utils.PageRequest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -25,9 +27,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(title = "Sale实体类", name = "Sale")
-public class Sale implements Serializable {
+public class SaleVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = 105797275385090227L;
+    private static final long serialVersionUID = -95959795237705289L;
 
     /**
      * 销售记录ID（主键）

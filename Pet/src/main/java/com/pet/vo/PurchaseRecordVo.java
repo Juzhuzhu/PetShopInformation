@@ -1,6 +1,8 @@
-package com.pet.entity;
+package com.pet.vo;
 
 import java.util.Date;
+
+import com.pet.utils.PageRequest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,7 +17,7 @@ import java.util.Date;
 
 
 /**
- * (Sale)表实体类
+ * (PurchaseRecord)表实体类
  *
  * @author makejava
  * @since 2024-01-26 21:48:54
@@ -24,15 +26,15 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(title = "Sale实体类", name = "Sale")
-public class Sale implements Serializable {
+@Schema(title = "PurchaseRecord实体类", name = "PurchaseRecord")
+public class PurchaseRecordVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = 105797275385090227L;
+    private static final long serialVersionUID = -75718148059711572L;
 
     /**
-     * 销售记录ID（主键）
+     * 购买记录ID（主键）
      */
-    @Schema(title = "销售记录ID（主键）")
+    @Schema(title = "购买记录ID（主键）")
     @TableId(type = IdType.AUTO)
     private String id;
 
@@ -49,22 +51,16 @@ public class Sale implements Serializable {
     private String customerId;
 
     /**
-     * 销售数量
+     * 购买数量
      */
-    @Schema(title = "销售数量")
+    @Schema(title = "购买数量")
     private Integer quantity;
 
     /**
-     * 销售时间
+     * 购买时间（UTC时间）
      */
-    @Schema(title = "销售时间")
-    private Date saleTime;
-
-    /**
-     * 销售总额
-     */
-    @Schema(title = "销售总额")
-    private Double totalAmount;
+    @Schema(title = "购买时间（UTC时间）")
+    private Date purchaseTime;
 
     /**
      * 逻辑删除:0=未删除,1=已删除

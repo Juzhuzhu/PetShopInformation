@@ -1,4 +1,6 @@
-package com.pet.entity;
+package com.pet.vo;
+
+import com.pet.utils.PageRequest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,7 +15,7 @@ import java.util.Date;
 
 
 /**
- * (Admin)表实体类
+ * (Customer)表实体类
  *
  * @author makejava
  * @since 2024-01-26 21:48:53
@@ -22,29 +24,41 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(title = "Admin实体类", name = "Admin")
-public class Admin implements Serializable {
+@Schema(title = "Customer实体类", name = "Customer")
+public class CustomerVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = 330456678230953885L;
+    private static final long serialVersionUID = 501211829194160934L;
 
     /**
-     * 管理员id（主键）
+     * 客户ID（主键）
      */
-    @Schema(title = "管理员id（主键）")
+    @Schema(title = "客户ID（主键）")
     @TableId(type = IdType.AUTO)
     private String id;
 
     /**
-     * 用户名
+     * 客户姓名
      */
-    @Schema(title = "用户名")
-    private String username;
+    @Schema(title = "客户姓名")
+    private String name;
 
     /**
-     * 密码
+     * 电话号码
      */
-    @Schema(title = "密码")
-    private String password;
+    @Schema(title = "电话号码")
+    private String phone;
+
+    /**
+     * 邮箱
+     */
+    @Schema(title = "邮箱")
+    private String email;
+
+    /**
+     * 地址
+     */
+    @Schema(title = "地址")
+    private String address;
 
     /**
      * 逻辑删除:0=未删除,1=已删除

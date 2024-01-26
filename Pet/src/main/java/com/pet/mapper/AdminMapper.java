@@ -8,7 +8,7 @@ import com.pet.entity.Admin;
  * (Admin)表数据库访问层
  *
  * @author makejava
- * @since 2024-01-26 01:27:59
+ * @since 2024-01-26 21:48:53
  */
 @Mapper
 public interface AdminMapper extends BaseMapper<Admin> {
