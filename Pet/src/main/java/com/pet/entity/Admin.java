@@ -13,10 +13,10 @@ import java.util.Date;
 
 
 /**
- * (Admin)表实体类
+ * 管理员实体(Admin)表实体类
  *
  * @author makejava
- * @since 2024-01-26 21:48:53
+ * @since 2024-01-31 22:57:45
  */
 @Data
 @Builder
@@ -25,26 +25,43 @@ import java.util.Date;
 @Schema(title = "Admin实体类", name = "Admin")
 public class Admin implements Serializable {
 
-    private static final long serialVersionUID = 330456678230953885L;
+    private static final long serialVersionUID = -45042245269764954L;
 
     /**
      * 管理员id（主键）
      */
     @Schema(title = "管理员id（主键）")
-    @TableId(type = IdType.AUTO)
     private String id;
 
     /**
      * 用户名
      */
     @Schema(title = "用户名")
-    private String username;
+    private String name;
+
+    /**
+     * 电话号码-用于登录账号
+     */
+    @Schema(title = "电话号码-用于登录账号")
+    private String phoneNumber;
 
     /**
      * 密码
      */
     @Schema(title = "密码")
     private String password;
+
+    /**
+     * 头像图片地址
+     */
+    @Schema(title = "头像图片地址")
+    private String headImgUrl;
+
+    /**
+     * 登录令牌
+     */
+    @Schema(title = "登录令牌")
+    private String token;
 
     /**
      * 逻辑删除:0=未删除,1=已删除

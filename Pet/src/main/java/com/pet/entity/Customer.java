@@ -1,7 +1,5 @@
 package com.pet.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,14 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
  * (Customer)表实体类
  *
  * @author makejava
- * @since 2024-01-26 21:48:53
+ * @since 2024-01-30 21:59:22
  */
 @Data
 @Builder
@@ -25,13 +22,12 @@ import java.util.Date;
 @Schema(title = "Customer实体类", name = "Customer")
 public class Customer implements Serializable {
 
-    private static final long serialVersionUID = 765955216007968765L;
+    private static final long serialVersionUID = 950900199054906125L;
 
     /**
      * 客户ID（主键）
      */
     @Schema(title = "客户ID（主键）")
-    @TableId(type = IdType.AUTO)
     private String id;
 
     /**

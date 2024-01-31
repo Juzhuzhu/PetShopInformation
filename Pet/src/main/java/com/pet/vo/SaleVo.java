@@ -20,7 +20,7 @@ import java.util.Date;
  * (Sale)表实体类
  *
  * @author makejava
- * @since 2024-01-26 21:48:54
+ * @since 2024-01-30 21:59:23
  */
 @Data
 @Builder
@@ -29,13 +29,12 @@ import java.util.Date;
 @Schema(title = "Sale实体类", name = "Sale")
 public class SaleVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = -95959795237705289L;
+    private static final long serialVersionUID = 979443345118256947L;
 
     /**
      * 销售记录ID（主键）
      */
     @Schema(title = "销售记录ID（主键）")
-    @TableId(type = IdType.AUTO)
     private String id;
 
     /**

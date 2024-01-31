@@ -2,8 +2,6 @@ package com.pet.entity;
 
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,14 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
  * (Sale)表实体类
  *
  * @author makejava
- * @since 2024-01-26 21:48:54
+ * @since 2024-01-30 21:59:23
  */
 @Data
 @Builder
@@ -27,13 +24,12 @@ import java.util.Date;
 @Schema(title = "Sale实体类", name = "Sale")
 public class Sale implements Serializable {
 
-    private static final long serialVersionUID = 105797275385090227L;
+    private static final long serialVersionUID = 893131555236334386L;
 
     /**
      * 销售记录ID（主键）
      */
     @Schema(title = "销售记录ID（主键）")
-    @TableId(type = IdType.AUTO)
     private String id;
 
     /**

@@ -18,7 +18,7 @@ import java.util.Date;
  * (Product)表实体类
  *
  * @author makejava
- * @since 2024-01-26 21:48:53
+ * @since 2024-01-30 21:59:22
  */
 @Data
 @Builder
@@ -27,13 +27,12 @@ import java.util.Date;
 @Schema(title = "Product实体类", name = "Product")
 public class ProductVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = 122569809712998413L;
+    private static final long serialVersionUID = 582571652350265469L;
 
     /**
      * 商品ID（主键）
      */
     @Schema(title = "商品ID（主键）")
-    @TableId(type = IdType.AUTO)
     private String id;
 
     /**

@@ -11,5 +11,12 @@ import com.pet.entity.Admin;
  */
 public interface AdminService extends IService<Admin> {
 
+    /**
+     * 管理员登录业务逻辑层
+     *
+     * @param admin  登录信息
+     * @return 用户信息
+     */
+    Admin login(Admin admin);
 }
 

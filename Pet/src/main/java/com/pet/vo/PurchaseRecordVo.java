@@ -20,7 +20,7 @@ import java.util.Date;
  * (PurchaseRecord)表实体类
  *
  * @author makejava
- * @since 2024-01-26 21:48:54
+ * @since 2024-01-30 21:59:23
  */
 @Data
 @Builder
@@ -29,13 +29,12 @@ import java.util.Date;
 @Schema(title = "PurchaseRecord实体类", name = "PurchaseRecord")
 public class PurchaseRecordVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = -75718148059711572L;
+    private static final long serialVersionUID = 625263551524237362L;
 
     /**
      * 购买记录ID（主键）
      */
     @Schema(title = "购买记录ID（主键）")
-    @TableId(type = IdType.AUTO)
     private String id;
 
     /**

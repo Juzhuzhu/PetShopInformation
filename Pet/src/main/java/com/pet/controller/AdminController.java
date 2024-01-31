@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pet.vo.AdminVo;
 import com.pet.entity.Admin;
 import com.pet.service.AdminService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.BeanUtils;
 
@@ -18,15 +20,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 
 
 /**
- * (Admin)表控制层
+ * 管理员实体(Admin)表控制层
  *
  * @author makejava
- * @since 2024-01-27 02:04:25
+ * @since 2024-01-31 22:57:45
  */
 @Controller
 @RequestMapping("/admin")
@@ -118,6 +121,24 @@ public class AdminController {
     @ApiOperation(value = "删除数据")
     public Result delete(@RequestParam("id") String id) {
         return Result.ok(this.adminService.removeById(id));
+    }
+
+    /**
+     * 管理员登录
+     *
+     * @param admin 登录信息
+     * @return
+     */
+    @Operation(summary = "用户登录", security = {@SecurityRequirement(name = "Authorization")})
+    @ResponseBody
+    @PostMapping("/login")
+    Result<Admin> userLogin(@RequestBody Admin admin){
+        Admin admin1 = adminService.login(admin);
+        //为空表示登录失败
+        if (Objects.isNull(admin1)){
+            return Result.error(5000, "登录失败");
+        }
+        return Result.ok(admin1);
     }
 }
 
