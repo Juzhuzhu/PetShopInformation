@@ -31,6 +31,8 @@ import org.springframework.stereotype.Controller;
  * @author makejava
  * @since 2024-01-31 22:57:45
  */
+//解决跨域
+@CrossOrigin
 @Controller
 @RequestMapping("/admin")
 @Api(tags = "Admin" + "模块")

@@ -28,6 +28,8 @@ import org.springframework.stereotype.Controller;
  * @author makejava
  * @since 2024-01-27 02:04:25
  */
+//解决跨域
+@CrossOrigin
 @Controller
 @RequestMapping("/purchaseRecord")
 @Api(tags = "PurchaseRecord" + "模块")

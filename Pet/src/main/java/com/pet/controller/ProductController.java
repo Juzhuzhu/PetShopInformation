@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author makejava
  * @since 2024-01-27 02:04:25
  */
+//解决跨域
+@CrossOrigin
 @Controller
 @RequestMapping("/product")
 @Api(tags = "Product" + "模块")
