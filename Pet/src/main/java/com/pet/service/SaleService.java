@@ -2,6 +2,7 @@ package com.pet.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pet.entity.Sale;
+import com.pet.vo.EcharsVo;
 
 /**
  * (Sale)表服务接口
@@ -11,5 +12,6 @@ import com.pet.entity.Sale;
  */
 public interface SaleService extends IService<Sale> {
 
+    EcharsVo getEchars();
 }
 

@@ -1,10 +1,16 @@
 package com.pet.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.pet.entity.Customer;
+import com.pet.entity.Product;
+import com.pet.service.CustomerService;
+import com.pet.service.ProductService;
 import com.pet.utils.Result;
 import com.pet.utils.IdGenerator;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pet.vo.PurchaseRecordVo;
 import com.pet.entity.PurchaseRecord;
@@ -12,14 +18,12 @@ import com.pet.service.PurchaseRecordService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 
 /**
@@ -41,11 +45,18 @@ public class PurchaseRecordController {
     /**
      * 服务对象
      */
-
     private final PurchaseRecordService purchaseRecordService;
 
-    public PurchaseRecordController(PurchaseRecordService purchaseRecordService) {
+    private final ProductService productService;
+
+    private final CustomerService customerService;
+
+    public PurchaseRecordController(PurchaseRecordService purchaseRecordService,
+                                    ProductService productService,
+                                    CustomerService customerService) {
         this.purchaseRecordService = purchaseRecordService;
+        this.productService = productService;
+        this.customerService = customerService;
     }
 
     /**
@@ -61,7 +72,9 @@ public class PurchaseRecordController {
         Page<PurchaseRecord> page = new Page<>(purchaseRecordVo.getPageNumber(), purchaseRecordVo.getPageSize());
         PurchaseRecord purchaseRecord = new PurchaseRecord();
         BeanUtils.copyProperties(purchaseRecordVo, purchaseRecord);
-        IPage<PurchaseRecord> purchaseRecordPage = this.purchaseRecordService.page(page, new QueryWrapper<>(purchaseRecord));
+        LambdaQueryWrapper<PurchaseRecord> wrapper = Wrappers.lambdaQuery();
+        wrapper.orderByDesc(PurchaseRecord::getUpdateTime);
+        IPage<PurchaseRecord> purchaseRecordPage = this.purchaseRecordService.page(page, wrapper);
         return Result.ok(purchaseRecordPage);
     }
 
@@ -120,6 +133,32 @@ public class PurchaseRecordController {
     @ApiOperation(value = "删除数据")
     public Result delete(@RequestParam("id") String id) {
         return Result.ok(this.purchaseRecordService.removeById(id));
+    }
+
+    /**
+     * 查询所有商品id和名称
+     *
+     * @return
+     */
+    @GetMapping("/getProducts")
+    @ResponseBody
+    public Result<Product> getProducts() {
+        BaseMapper<Product> baseMapper = productService.getBaseMapper();
+        List<Product> products = baseMapper.selectList(null);
+        return Result.ok(products);
+    }
+
+    /**
+     * 查询所有商品id和名称
+     *
+     * @return
+     */
+    @GetMapping("/getCustomers")
+    @ResponseBody
+    public Result<Customer> getCustomers() {
+        BaseMapper<Customer> baseMapper = customerService.getBaseMapper();
+        List<Customer> customers = baseMapper.selectList(null);
+        return Result.ok(customers);
     }
 }
 

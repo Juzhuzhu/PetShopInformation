@@ -11,6 +11,17 @@
         <result property="totalAmount" column="total_amount" jdbcType="NUMERIC"/>
         <result property="deleted" column="deleted" jdbcType="INTEGER"/>
     </resultMap>
+    <select id="getEchars" resultType="com.pet.entity.Sale">
+        SELECT
+            DATE( sale_time ) as sale_time,
+            SUM( total_amount ) as  total_amount
+        FROM
+            sale
+        WHERE
+            deleted = 0
+        GROUP BY
+            sale_time;
+    </select>
 
 </mapper>
 

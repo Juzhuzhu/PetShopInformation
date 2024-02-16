@@ -2,6 +2,7 @@ package com.pet.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pet.utils.PageRequest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -20,7 +21,7 @@ import java.util.Date;
  * (PurchaseRecord)表实体类
  *
  * @author makejava
- * @since 2024-01-30 21:59:23
+ * @since 2024-02-07 22:56:01
  */
 @Data
 @Builder
@@ -29,7 +30,7 @@ import java.util.Date;
 @Schema(title = "PurchaseRecord实体类", name = "PurchaseRecord")
 public class PurchaseRecordVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = 625263551524237362L;
+    private static final long serialVersionUID = -87425957249207245L;
 
     /**
      * 购买记录ID（主键）
@@ -59,7 +60,20 @@ public class PurchaseRecordVo extends PageRequest implements Serializable {
      * 购买时间（UTC时间）
      */
     @Schema(title = "购买时间（UTC时间）")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date purchaseTime;
+
+    /**
+     * 创建时间
+     */
+    @Schema(title = "创建时间")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Schema(title = "更新时间")
+    private Date updateTime;
 
     /**
      * 逻辑删除:0=未删除,1=已删除

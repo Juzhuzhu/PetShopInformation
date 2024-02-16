@@ -1,5 +1,8 @@
 package com.pet.entity;
 
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,13 +10,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
  * (Customer)表实体类
  *
  * @author makejava
- * @since 2024-01-30 21:59:22
+ * @since 2024-02-07 22:39:52
  */
 @Data
 @Builder
@@ -22,7 +26,7 @@ import java.io.Serializable;
 @Schema(title = "Customer实体类", name = "Customer")
 public class Customer implements Serializable {
 
-    private static final long serialVersionUID = 950900199054906125L;
+    private static final long serialVersionUID = 114359554244260015L;
 
     /**
      * 客户ID（主键）
@@ -53,6 +57,20 @@ public class Customer implements Serializable {
      */
     @Schema(title = "地址")
     private String address;
+
+    /**
+     * 创建时间
+     */
+    @Schema(title = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Schema(title = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
     /**
      * 逻辑删除:0=未删除,1=已删除

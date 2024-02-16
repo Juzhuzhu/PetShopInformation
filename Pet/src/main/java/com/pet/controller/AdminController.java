@@ -1,6 +1,9 @@
 package com.pet.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.pet.entity.Customer;
 import com.pet.utils.Result;
 import com.pet.utils.IdGenerator;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -64,7 +67,9 @@ public class AdminController {
         Page<Admin> page = new Page<>(adminVo.getPageNumber(), adminVo.getPageSize());
         Admin admin = new Admin();
         BeanUtils.copyProperties(adminVo, admin);
-        IPage<Admin> adminPage = this.adminService.page(page, new QueryWrapper<>(admin));
+        LambdaQueryWrapper<Admin> wrapper = Wrappers.lambdaQuery();
+        wrapper.orderByDesc(Admin::getUpdateTime);
+        IPage<Admin> adminPage = this.adminService.page(page, wrapper);
         return Result.ok(adminPage);
     }
 

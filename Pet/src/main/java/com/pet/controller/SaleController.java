@@ -4,11 +4,15 @@ package com.pet.controller;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.pet.entity.PurchaseRecord;
 import com.pet.utils.Result;
 import com.pet.utils.IdGenerator;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pet.vo.EcharsVo;
 import com.pet.vo.SaleVo;
 import com.pet.entity.Sale;
 import com.pet.service.SaleService;
@@ -63,7 +67,9 @@ public class SaleController {
         Page<Sale> page = new Page<>(saleVo.getPageNumber(), saleVo.getPageSize());
         Sale sale = new Sale();
         BeanUtils.copyProperties(saleVo, sale);
-        IPage<Sale> salePage = this.saleService.page(page, new QueryWrapper<>(sale));
+        LambdaQueryWrapper<Sale> wrapper = Wrappers.lambdaQuery();
+        wrapper.orderByDesc(Sale::getUpdateTime);
+        IPage<Sale> salePage = this.saleService.page(page, wrapper);
         return Result.ok(salePage);
     }
 
@@ -174,6 +180,17 @@ public class SaleController {
         writer.flush(outputStream, true);
         writer.close();
         IoUtil.close(outputStream);
+    }
+
+    /**
+     * echar统计每日销售总额
+     *
+     * @return 返回的数据
+     */
+    @GetMapping("/getEchars")
+    @ResponseBody
+    public Result<EcharsVo> getEchars() {
+        return Result.ok(saleService.getEchars());
     }
 }
 

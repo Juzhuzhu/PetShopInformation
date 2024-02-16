@@ -1,5 +1,7 @@
 package com.pet.vo;
 
+import java.util.Date;
+
 import com.pet.utils.PageRequest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -18,7 +20,7 @@ import java.util.Date;
  * (Customer)表实体类
  *
  * @author makejava
- * @since 2024-01-30 21:59:22
+ * @since 2024-02-07 22:39:52
  */
 @Data
 @Builder
@@ -27,7 +29,7 @@ import java.util.Date;
 @Schema(title = "Customer实体类", name = "Customer")
 public class CustomerVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = 896211969393583838L;
+    private static final long serialVersionUID = 302363581019097693L;
 
     /**
      * 客户ID（主键）
@@ -58,6 +60,18 @@ public class CustomerVo extends PageRequest implements Serializable {
      */
     @Schema(title = "地址")
     private String address;
+
+    /**
+     * 创建时间
+     */
+    @Schema(title = "创建时间")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Schema(title = "更新时间")
+    private Date updateTime;
 
     /**
      * 逻辑删除:0=未删除,1=已删除

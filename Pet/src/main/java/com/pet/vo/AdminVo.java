@@ -1,5 +1,7 @@
 package com.pet.vo;
 
+import java.util.Date;
+
 import com.pet.utils.PageRequest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -18,7 +20,7 @@ import java.util.Date;
  * 管理员实体(Admin)表实体类
  *
  * @author makejava
- * @since 2024-01-31 22:57:45
+ * @since 2024-02-07 22:56:01
  */
 @Data
 @Builder
@@ -27,7 +29,7 @@ import java.util.Date;
 @Schema(title = "Admin实体类", name = "Admin")
 public class AdminVo extends PageRequest implements Serializable {
 
-    private static final long serialVersionUID = -10658701519290631L;
+    private static final long serialVersionUID = 618008927716112552L;
 
     /**
      * 管理员id（主键）
@@ -64,6 +66,18 @@ public class AdminVo extends PageRequest implements Serializable {
      */
     @Schema(title = "登录令牌")
     private String token;
+
+    /**
+     * 创建时间
+     */
+    @Schema(title = "创建时间")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Schema(title = "更新时间")
+    private Date updateTime;
 
     /**
      * 逻辑删除:0=未删除,1=已删除

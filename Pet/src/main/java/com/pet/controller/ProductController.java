@@ -4,6 +4,9 @@ package com.pet.controller;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.pet.entity.Admin;
 import com.pet.utils.Result;
 import com.pet.utils.IdGenerator;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -63,7 +66,9 @@ public class ProductController {
         Page<Product> page = new Page<>(productVo.getPageNumber(), productVo.getPageSize());
         Product product = new Product();
         BeanUtils.copyProperties(productVo, product);
-        IPage<Product> productPage = this.productService.page(page, new QueryWrapper<>(product));
+        LambdaQueryWrapper<Product> wrapper = Wrappers.lambdaQuery();
+        wrapper.orderByDesc(Product::getUpdateTime);
+        IPage<Product> productPage = this.productService.page(page, wrapper);
         return Result.ok(productPage);
     }
 

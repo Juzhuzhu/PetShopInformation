@@ -1,7 +1,8 @@
 package com.pet.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.util.Date;
  * 管理员实体(Admin)表实体类
  *
  * @author makejava
- * @since 2024-01-31 22:57:45
+ * @since 2024-02-07 22:56:01
  */
 @Data
 @Builder
@@ -25,7 +26,7 @@ import java.util.Date;
 @Schema(title = "Admin实体类", name = "Admin")
 public class Admin implements Serializable {
 
-    private static final long serialVersionUID = -45042245269764954L;
+    private static final long serialVersionUID = -25323934560583685L;
 
     /**
      * 管理员id（主键）
@@ -62,6 +63,20 @@ public class Admin implements Serializable {
      */
     @Schema(title = "登录令牌")
     private String token;
+
+    /**
+     * 创建时间
+     */
+    @Schema(title = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Schema(title = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
     /**
      * 逻辑删除:0=未删除,1=已删除
