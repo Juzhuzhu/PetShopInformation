@@ -5,7 +5,7 @@ package com.pet.config;
  * <p>
  * Create at 2024/01/26 18:35
  *
- * @author 罗康明
+ * @author
  * @version 1.0.0, 2024/01/26
  * @since 1.0.0
  */

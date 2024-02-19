@@ -3,7 +3,6 @@ package com.pet.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.base.Preconditions;
 import com.pet.entity.Admin;
 import com.pet.mapper.AdminMapper;
 import com.pet.service.AdminService;

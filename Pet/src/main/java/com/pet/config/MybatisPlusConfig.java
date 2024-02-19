@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * <p>
  * Create at 2023/02/25 14:50
  *
- * @author 罗康明
+ * @author
  * @version 1.0.0, 2023/02/25
  * @since 1.0.0
  */
